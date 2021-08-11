@@ -65,7 +65,7 @@ class CustomerController extends Controller
 
         $customer->save();
 
-        return redirect(route('customers.index'))->with('success', 'Contact saved!');
+        return redirect(route('customers.index'))->with('success', 'Customer saved!');
     }
 
     /**
@@ -88,6 +88,10 @@ class CustomerController extends Controller
     public function edit($id)
     {
         //
+        /** @var Customer $customer */
+        $customer = Customer::find($id);
+
+        return view('admin.customers.edit', compact('customer'));
     }
 
     /**
@@ -100,6 +104,22 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required'
+        ]);
+
+        $customer = Customer::find($id);
+        $customer->first_name = $request->get('first_name');
+        $customer->last_name = $request->get('last_name');
+        $customer->email = $request->get('email');
+        $customer->job_title = $request->get('job_title');
+        $customer->city = $request->get('city');
+        $customer->country = $request->get('country');
+        $customer->save();
+
+        return redirect(route('customers.index'))->with('success', 'Customer updated!');
     }
 
     /**
@@ -111,5 +131,10 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+        /** @var Customer $customer */
+        $customer = Customer::find($id);
+        $customer->delete();
+
+        return redirect(route('customers.index'))->with('success', 'Customer deleted!');
     }
 }
