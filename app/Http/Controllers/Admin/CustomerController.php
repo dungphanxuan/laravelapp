@@ -35,24 +35,43 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('admin.customers.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        //Store customer
+
         //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
+        /** @var Customer $customer */
+        $customer = new Customer([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'phone' => $request->get('phone'),
+            'address' => $request->get('address'),
+        ]);
+
+        $customer->save();
+
+        return redirect(route('customers.index'))->with('success', 'Contact saved!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,7 +82,7 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -74,8 +93,8 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -86,7 +105,7 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

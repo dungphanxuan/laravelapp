@@ -27,7 +27,7 @@
                                     <th>Tên</th>
                                     <th>Số ĐT</th>
                                     <th>Email</th>
-                                    <th>Job Title</th>
+                                    <th>Địa chỉ</th>
                                     <th>City</th>
                                     <th>Country</th>
                                     <th colspan=2>Actions</th>
@@ -37,10 +37,10 @@
                                 @foreach($customers as $customer)
                                     <tr>
                                         <td>{{$customer->id}}</td>
-                                        <td>Tên: {{$customer->first_name}} {{$customer->last_name}}</td>
+                                        <td>Tên: {{$customer->name}}</td>
                                         <td>{{$customer->phone}}</td>
                                         <td>{{$customer->email}}</td>
-                                        <td>{{$customer->job_title}}</td>
+                                        <td>{{$customer->address}}</td>
                                         <td>{{$customer->city}}</td>
                                         <td>{{$customer->country}}</td>
                                         <td>
